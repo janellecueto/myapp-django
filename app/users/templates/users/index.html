@@ -6,9 +6,9 @@
 
   <h1>Hello, {{ name }}!</h1>
 
-  {% if users %}
+  {% if user_list %}
     <ul class="list-group">
-    {% for user in users %} 
+    {% for user in user_list %} 
       <li class="list-group-item">{{ user }}</li>
     {% endfor %}
   </ul>

@@ -1,21 +1,24 @@
 from django.shortcuts import get_object_or_404, render
-
 from django.http import Http404, HttpResponse
+from django.views.generic import ListView, DetailView
 
 from .models import User
 
-def index(request):
+class UserListView(ListView):
+    model = User
+    template_name = 'users/index.html'
 
-    context = { 'name' : 'Adonis', 'users' : User.objects.all() }
+    def get_context_data(self, **kwargs):
+        context = super(UserListView, self).get_context_data(**kwargs)
 
-    return render(request, 'users/index.html', context)
+        # In real life we'd retrieve this from the session.
+        context['name'] = 'Adonis'
+        
+        return context
 
-def detail(request, user_id):
-
-    user = get_object_or_404(User, id=user_id)
-    context =  { 'user' : user }
-    
-    return render(request, 'users/detail.html', context)
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'users/detail.html'
 
 def add(request):
 
